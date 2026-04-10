@@ -224,6 +224,42 @@
     "meeting-notes-pro": {
       "version": "1.0.0",
       "installedAt": 1775828709020
+    },
+    "email-assistant-pro": {
+      "version": "1.0.0",
+      "installedAt": 1775828761945
+    },
+    "document-pro": {
+      "version": "1.0.0",
+      "installedAt": 1775828770524
+    },
+    "learning-cards": {
+      "version": "1.1.1",
+      "installedAt": 1775828776267
+    },
+    "flashcards": {
+      "version": "1.0.0",
+      "installedAt": 1775828822899
+    },
+    "research-assistant": {
+      "version": "1.0.1",
+      "installedAt": 1775828828549
+    },
+    "notectl": {
+      "version": "1.0.0",
+      "installedAt": 1775828883377
+    },
+    "strategic-competitor-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1775828887388
+    },
+    "lark-calendar": {
+      "version": "1.0.0",
+      "installedAt": 1775828894406
+    },
+    "task-manager": {
+      "version": "1.1.0",
+      "installedAt": 1775828942362
     }
   }
 }

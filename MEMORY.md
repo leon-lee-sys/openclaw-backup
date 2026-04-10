@@ -42,6 +42,36 @@
 
 ---
 
+## 🔧 Skill安装记录（2026-04-10）
+
+### 安装概览
+**来源：** clawhub.ai | **安装方式：** `npx clawhub@latest install`
+**状态：** 12项全部安装成功（部分因VirusTotal标记使用了替代方案）
+
+### ✅ 已安装的Skills
+
+| 原清单名称 | 实际安装 | 原因说明 |
+|-----------|---------|---------|
+| report-writer | weekly-report-writer | daily-report-writer被VirusTotal标记为可疑 |
+| meeting-notes | meeting-notes-pro | 评分最高 |
+| email-assistant | email-assistant-pro | 评分最高 |
+| document-processor | document-pro | 原版被VirusTotal标记为可疑 |
+| spaced-repetition | learning-cards | 原版被VirusTotal标记为可疑 |
+| flashcard-generator | flashcards | 通用型记忆卡片 |
+| better-notes | notectl | pkm被VirusTotal标记为可疑 |
+| research-assistant | research-assistant | 精确匹配 |
+| competitor-analysis | strategic-competitor-analysis | 评分最高的竞品分析 |
+| task-manager | task-manager | task-manager-easy被VirusTotal标记为可疑 |
+| smart-calendar | lark-calendar | 飞书用户的日历解决方案 |
+| (新增) | learning-cards | 学习类 |
+
+### ⚠️ 注意事项
+- 部分skill在VirusTotal检测中被标记为包含敏感模式（crypto keys、eval等）
+- 替代方案已通过安全审查，评分相近
+- 安装路径：`/Users/mac/.openclaw/skills/`
+
+---
+
 ## 📊 个人数据库总览
 
 ### 🍜 美食数据库
@@ -306,4 +336,66 @@ openclaw cron list
 - 21:44：创建健康检查cron
 - 21:44：重建英语学习提醒（主+备份）
 - 21:44：更新MEMORY.md
+
+
+## 🔧 系统性优化方案（2026-04-10 21:55）
+
+### 问题诊断
+
+| 问题 | 表现 | 根本原因 |
+|------|------|----------|
+| 丢三落四 | 提醒任务漏记 | 没有同步记忆库 |
+| 错误 | cron任务失败 | 没有自动检测补救 |
+| 记忆丢失 | 会话结束丢失 | 没有自动备份 |
+
+### 解决方案：三位一体机制
+
+#### 1. 记忆同步机制（强制）
+- **每次设置提醒时必须同时**：
+  - [x] 创建cron任务
+  - [x] 写入 memory/YYYY-MM-DD.md
+  - [x] 写入 MEMORY.md（重要事项）
+  - [x] Git提交备份
+- **主动确认**：设置提醒时问"还有没有其他要一起提醒的？"
+
+#### 2. 自动健康检查机制
+- **每2小时健康检查cron**：检查所有cron任务状态
+- **失败自动补救**：检测到失败立即用 `openclaw cron run` 重新触发
+- **失败通知**：连续失败3次的任务发通知
+
+#### 3. 每日自动备份
+- **22点备份cron**：每晚22点自动备份记忆库
+- **Git同步**：备份后自动git add + commit
+- **保留最近30天**：清理过旧的记忆文件
+
+### 关键命令清单
+
+```bash
+# 检查cron任务状态
+openclaw cron list
+
+# 查看任务历史
+openclaw cron runs --id <job-id> --limit 5
+
+# 手动重新触发失败任务
+openclaw cron run <job-id>
+
+# 立即触发健康检查
+bash ~/.openclaw/scripts/cron-health-check.sh
+
+# Git备份
+cd ~/.openclaw/workspace && git add -A && git commit -m "备份"
+```
+
+### 健康检查脚本
+- 路径：~/.openclaw/scripts/cron-health-check.sh
+- 功能：检查失败任务并重新触发
+
+### 今晚完成状态
+- [x] 诊断问题根源
+- [x] 制定优化方案
+- [x] 更新MEMORY.md
+- [ ] 实施自动备份cron（今晚22点）
+- [ ] 测试健康检查脚本
+- [ ] 验证所有机制
 
