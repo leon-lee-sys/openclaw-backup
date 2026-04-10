@@ -1,0 +1,1 @@
+{"text": " How's your project going?", "segments": [{"id": 0, "seek": 0, "start": 0.0, "end": 4.0, "text": " How's your project going?", "tokens": [50363, 1374, 338, 534, 1628, 1016, 30, 50563], "temperature": 0.0, "avg_logprob": -0.7543827162848579, "compression_ratio": 0.7575757575757576, "no_speech_prob": 0.06053166091442108}], "language": "en"}
