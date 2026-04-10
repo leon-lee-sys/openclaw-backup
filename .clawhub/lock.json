@@ -216,6 +216,14 @@
     "wechat-hot-trend": {
       "version": "0.1.0",
       "installedAt": 1775780121141
+    },
+    "weekly-report-writer": {
+      "version": "1.0.0",
+      "installedAt": 1775828702131
+    },
+    "meeting-notes-pro": {
+      "version": "1.0.0",
+      "installedAt": 1775828709020
     }
   }
 }
