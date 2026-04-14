@@ -1,0 +1,541 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""安全生产主体责任PPT - 逻辑严谨版（80页）
+序号层级：一级:一、二… 二级:（一） 三级:1. 四级:1） 五级:(1)
+"""
+from pptx import Presentation
+from pptx.util import Inches, Pt
+from pptx.dml.color import RGBColor
+from pptx.enum.text import PP_ALIGN
+
+prs = Presentation()
+PRIMARY=RGBColor(30,60,114);SECONDARY=RGBColor(0,100,80);ACCENT=RGBColor(70,130,180)
+WARNING=RGBColor(180,50,50);LIGHT_BG=RGBColor(245,248,255);TEXT_DARK=RGBColor(51,51,51);WHITE=RGBColor(255,255,255)
+
+def sn(s,n,t=80):
+    f=s.shapes.add_textbox(Inches(9.3),Inches(7.25),Inches(.6),Inches(.25))
+    tf=f.text_frame.paragraphs[0];tf.text=f"{n}/{t}";tf.font.size=Pt(9);tf.font.color.rgb=RGBColor(180,180,180);tf.alignment=PP_ALIGN.RIGHT
+
+def tb(s,t,c=PRIMARY):
+    b=s.shapes.add_shape(1,Inches(0),Inches(0),Inches(10),Inches(.8));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background()
+    tx=s.shapes.add_textbox(Inches(.5),Inches(.18),Inches(9),Inches(.6));tf=tx.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(24);p.font.bold=True;p.font.color.rgb=WHITE
+
+def part_page(s,num,title,c=PRIMARY):
+    b=s.shapes.add_shape(1,Inches(0),Inches(0),Inches(10),Inches(7.5));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background()
+    tx=s.shapes.add_textbox(Inches(.5),Inches(2),Inches(9),Inches(2));tf=tx.text_frame;p=tf.paragraphs[0];p.text=f"第{num}部分\nPART 0{num}";p.font.size=Pt(32);p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+    p2=tf.add_paragraph();p2.text=title;p2.font.size=Pt(36);p2.font.bold=True;p2.font.color.rgb=WHITE;p2.alignment=PP_ALIGN.CENTER
+
+def box_item(s,y,txt,fc=LIGHT_BG,fs=13):
+    b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.6));b.fill.solid();b.fill.fore_color.rgb=fc;tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=txt;p.font.size=Pt(fs);p.font.color.rgb=TEXT_DARK;return y+.68
+
+def num_box(s,y,n,c=PRIMARY):
+    b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=str(n);p.font.size=Pt(14);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+
+def sub_hdr(s,y,txt,c=PRIMARY):
+    b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=c;tf=b.text_frame;p=tf.paragraphs[0];p.text=txt;p.font.size=Pt(15);p.font.bold=True;p.font.color.rgb=WHITE;return y+.58
+
+def highlight(s,txt,c=WARNING):
+    b=s.shapes.add_shape(12,Inches(.5),Inches(6.3),Inches(9),Inches(1));b.fill.solid();b.fill.fore_color.rgb=RGBColor(255,245,245);b.line.color.rgb=c;b.line.width=Pt(2);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=txt;p.font.size=Pt(13);p.font.color.rgb=c;p.alignment=PP_ALIGN.CENTER
+
+# ==================== P1 封面 ====================
+s1=prs.slides.add_slide(prs.slide_layouts[6])
+b=s1.shapes.add_shape(1,Inches(0),Inches(0),Inches(10),Inches(3.2));b.fill.solid();b.fill.fore_color.rgb=PRIMARY;b.line.fill.background()
+t=s1.shapes.add_textbox(Inches(.5),Inches(.8),Inches(9),Inches(1.2));tf=t.text_frame;p=tf.paragraphs[0];p.text="全面落实安全生产主体责任";p.font.size=Pt(44);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+p2=tf.add_paragraph();p2.text="有力保障企业高质量发展";p2.font.size=Pt(32);p2.font.bold=True;p2.font.color.rgb=ACCENT;p2.alignment=PP_ALIGN.CENTER
+l=s1.shapes.add_shape(1,Inches(3),Inches(3.4),Inches(4),Pt(4));l.fill.solid();l.fill.fore_color.rgb=ACCENT;l.line.fill.background()
+t2=s1.shapes.add_textbox(Inches(1),Inches(3.8),Inches(8),Inches(.6));tf2=t2.text_frame;p3=tf2.paragraphs[0];p3.text="—— 企业安全生产主体责任落实专题培训";p3.font.size=Pt(20);p3.font.color.rgb=PRIMARY;p3.alignment=PP_ALIGN.CENTER
+t3=s1.shapes.add_textbox(Inches(1),Inches(6.5),Inches(8),Inches(.5));tf3=t3.text_frame;p4=tf3.paragraphs[0];p4.text="2026年4月";p4.font.size=Pt(16);p4.font.color.rgb=TEXT_DARK;p4.alignment=PP_ALIGN.CENTER
+sn(s1,1)
+
+# ==================== P2 目录 ====================
+s2=prs.slides.add_slide(prs.slide_layouts[6]);tb(s2,"目 录")
+items=[("一","落实企业安全生产主体责任的重要性",PRIMARY),("二","主要存在问题",WARNING),("三","提升领导力带动企业落实责任",SECONDARY)]
+y=1.3
+for n,t,c in items:
+    b=s2.shapes.add_shape(9,Inches(1),Inches(y),Inches(.7),Inches(.7));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=n;p.font.size=Pt(20);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+    t2=s2.shapes.add_textbox(Inches(1.9),Inches(y+.1),Inches(7.5),Inches(.5));tf2=t2.text_frame;p2=tf2.paragraphs[0];p2.text=t;p2.font.size=Pt(20);p2.font.bold=True;p2.font.color.rgb=TEXT_DARK
+    y+=1
+sn(s2,2)
+
+# ==================== P3 培训背景 ====================
+s3=prs.slides.add_slide(prs.slide_layouts[6]);tb(s3,"培训背景与目的")
+y=1.3
+for i,t in enumerate(["安全生产是企业发展的生命线","落实主体责任是安全生产的根本保障","近年来安全生产形势依然严峻","需要各级领导和员工共同参与","通过培训提升全员安全意识"],1):
+    num_box(s3,y,i)
+    t2=s3.shapes.add_textbox(Inches(1.2),Inches(y+.08),Inches(8),Inches(.5));tf=t2.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(16);p.font.color.rgb=TEXT_DARK
+    y+=.75
+sn(s3,3)
+
+# ==================== P4 习近平总书记重要论述 ====================
+s4=prs.slides.add_slide(prs.slide_layouts[6]);tb(s4,"习近平总书记关于安全生产重要论述")
+quotes=["\"人命关天，发展决不能以牺牲人的生命为代价。\"","\"安全生产必须警钟长鸣、常抓不懈。\"","\"落实安全生产责任制，要落实行业主管部门直接监管、安全监管部门综合监管、地方政府属地监管。\"","\"要抓紧建立健全安全生产责任体系。\""]
+y=1.15
+for q in quotes:
+    b=s4.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.95));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=q;p.font.size=Pt(14);p.font.italic=True;p.font.color.rgb=PRIMARY;p.alignment=PP_ALIGN.CENTER
+    y+=1.05
+highlight(s4,"安全生产是必须守住的底线，不可逾越的红线！")
+sn(s4,4)
+
+# ==================== P5 核心要点 ====================
+s5=prs.slides.add_slide(prs.slide_layouts[6]);tb(s5,"重要指示批示核心要点")
+core=[("【红线意识】","发展绝不能以牺牲安全为代价"),("【两个至上】","人民至上，生命至上"),("【两个根本】","从根本上消除隐患、从根本上解决问题"),("【三管三必须】","管行业必须管安全、管业务必须管安全、管生产经营必须管安全"),("【四不放过】","事故原因不查清不放过，责任人员不处理不放过、整改措施不落实不放过、教训不汲取不放过")]
+y=1.15
+for t,d in core:
+    b=s5.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.7));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];r1=p.add_run();r1.text=t;r1.font.size=Pt(13);r1.font.bold=True;r1.font.color.rgb=WARNING;r2=p.add_run();r2.text=d;r2.font.size=Pt(12);r2.font.color.rgb=TEXT_DARK
+    y+=.78
+sn(s5,5)
+
+# ==================== P6 重大事故警示 ====================
+s6=prs.slides.add_slide(prs.slide_layouts[6]);tb(s6,"安全生产重大事故警示",WARNING)
+accidents=["2020年福建泉州欣佳酒店\"3·7\"坍塌事故 — 29人死亡","2021年湖北十堰燃气爆炸事故 — 25人死亡","2022年湖南长沙望城区自建房倒塌事故 — 54人死亡","2023年北京丰台长峰医院火灾 — 29人死亡","2024年广东梅大高速塌方灾害 — 48人死亡"]
+y=1.15
+for a in accidents:
+    b=s6.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.7));b.fill.solid();b.fill.fore_color.rgb=RGBColor(255,245,245);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=a;p.font.size=Pt(14);p.font.color.rgb=TEXT_DARK
+    y+=.78
+highlight(s6,"血的教训——安全绝非小事，责任重于泰山！",WARNING)
+sn(s6,6)
+
+# ==================== 第一部分：重要性 P7-18 ====================
+# P7 第一部分标题
+s7=prs.slides.add_slide(prs.slide_layouts[6]);part_page(s7,"一","落实企业安全生产主体责任的重要性")
+sn(s7,7)
+
+# P8 一、概述
+s8=prs.slides.add_slide(prs.slide_layouts[6]);tb(s8,"一、落实企业安全生产主体责任的重要性")
+y=1.2
+for n,t in [("（一）","落实主体责任是法律的基本要求"),("（二）","落实主体责任是企业发展的根本保障"),("（三）","落实主体责任是员工权益的基本保障"),("（四）","落实主体责任是社会和谐的重要基础")]:
+    b=s8.shapes.add_shape(12,Inches(.5),Inches(y),Inches(.9),Inches(.55));b.fill.solid();b.fill.fore_color.rgb=PRIMARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=n;p.font.size=Pt(14);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+    t2=s8.shapes.add_textbox(Inches(1.6),Inches(y+.05),Inches(8),Inches(.5));tf2=t2.text_frame;p2=tf2.paragraphs[0];p2.text=t;p2.font.size=Pt(18);p2.font.bold=True;p2.font.color.rgb=TEXT_DARK
+    y+=.85
+sn(s8,8)
+
+# P9 （一）法律基本要求
+s9=prs.slides.add_slide(prs.slide_layouts[6]);tb(s9,"一、落实企业安全生产主体责任的重要性\n（一）落实主体责任是法律的基本要求")
+y=1.2
+for t in ["1. 《安全生产法》明确规定生产经营单位是安全生产责任主体","2. 主要负责人对本单位安全生产工作全面负责","3. 建立健全安全生产责任制是法定义务","4. 未落实主体责任将承担行政、民事、刑事等法律责任"]:
+    box_item(s9,y,t);y+=.68
+highlight(s9,"法律是底线，落实主体责任是企业的根本义务！")
+sn(s9,9)
+
+# P10 安全生产法律体系
+s10=prs.slides.add_slide(prs.slide_layouts[6]);tb(s10,"一、落实企业安全生产主体责任的重要性\n（一）落实主体责任是法律的基本要求")
+y=1.15
+for t in ["【上位法】《中华人民共和国安全生产法》（2021年修订）","【专门法】《消防法》《危险化学品安全管理条例》等","【行政法规】《生产安全事故应急条例》《安全生产许可证条例》等","【部门规章】《生产安全事故报告和调查处理条例》等","【地方性法规】各省市安全生产条例"]:
+    box_item(s10,y,t);y+=.68
+sn(s10,10)
+
+# P11 主体责任法定定义
+s11=prs.slides.add_slide(prs.slide_layouts[6]);tb(s11,"一、落实企业安全生产主体责任的重要性\n（一）落实主体责任是法律的基本要求")
+b=s11.shapes.add_shape(12,Inches(1),Inches(1.35),Inches(8),Inches(1.2));b.fill.solid();b.fill.fore_color.rgb=RGBColor(240,248,255);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text="\"生产经营单位是安全生产的责任主体，对本单位的安全生产承担主体责任。\"";p.font.size=Pt(17);p.font.italic=True;p.font.color.rgb=PRIMARY;p.alignment=PP_ALIGN.CENTER
+details=["主体责任包括：","① 建立健全安全生产责任制","② 配备安全生产管理人员","③ 保障安全生产投入","④ 落实安全教育培训","⑤ 强化应急救援体系建设"]
+y=2.8
+for d in details:
+    p=s11.shapes.add_textbox(Inches(1.5),Inches(y),Inches(7),Inches(.5));tf=p.text_frame;pp=tf.paragraphs[0];pp.text=d;pp.font.size=Pt(14);pp.font.color.rgb=TEXT_DARK
+    y+=.5
+sn(s11,11)
+
+# P12 主要负责人七项职责
+s12=prs.slides.add_slide(prs.slide_layouts[6]);tb(s12,"一、落实企业安全生产主体责任的重要性\n（一）落实主体责任是法律的基本要求")
+y=1.15
+for d in ["1. 建立、健全本单位安全生产责任制","2. 组织制定本单位安全生产规章制度和操作规程","3. 组织制定并实施本单位安全生产教育和培训计划","4. 保证本单位安全生产投入的有效实施","5. 督促、检查本单位的安全生产工作，及时消除隐患","6. 组织制定并实施本单位的生产安全事故应急救援预案","7. 及时、如实报告生产安全事故"]:
+    b=s12.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.58));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=d;p.font.size=Pt(12);p.font.color.rgb=TEXT_DARK
+    y+=.63
+sn(s12,12)
+
+# P13 （二）企业发展保障
+s13=prs.slides.add_slide(prs.slide_layouts[6]);tb(s13,"一、落实企业安全生产主体责任的重要性\n（二）落实主体责任是企业发展的根本保障")
+y=1.2
+for t in ["1. 安全生产是企业可持续发展的重要基石","2. 事故会给企业带来巨大经济损失和声誉损害","3. 落实主体责任有助于提升企业管理水平","4. 良好的安全业绩是企业核心竞争力的重要组成部分"]:
+    box_item(s13,y,t);y+=.7
+highlight(s13,"安全是最大的效益，安全出问题一切归零！",PRIMARY)
+sn(s13,13)
+
+# P14 法律责任追究
+s14=prs.slides.add_slide(prs.slide_layouts[6]);tb(s14,"一、落实企业安全生产主体责任的重要性\n（二）落实主体责任是企业发展的根本保障")
+y=1.15
+for t in ["【行政处罚】责令限期改正、罚款、停产停业整顿、吊销证照","【民事责任】赔偿损失、消除影响、恢复原状","【刑事责任】重大责任事故罪、重大劳动安全事故罪","【量刑标准】造成死亡1-3人：3年以下；3人以上：3-7年"]:
+    b=s14.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.65));b.fill.solid();b.fill.fore_color.rgb=RGBColor(255,245,245);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(13);p.font.color.rgb=TEXT_DARK
+    y+=.72
+highlight(s14,"法网恢恢，疏而不漏！",WARNING)
+sn(s14,14)
+
+# P15 （三）员工权益保障
+s15=prs.slides.add_slide(prs.slide_layouts[6]);tb(s15,"一、落实企业安全生产主体责任的重要性\n（三）落实主体责任是员工权益的基本保障")
+y=1.2
+for t in ["1. 保障员工的生命安全和身体健康是企业的首要责任","2. 落实主体责任才能为员工创造安全的工作环境","3. 安全的工作环境有助于提高员工工作积极性","4. 员工安全权益得到保障才能与企业共同发展"]:
+    box_item(s15,y,t);y+=.7
+highlight(s15,"员工是企业最宝贵的财富，安全是给员工最好的福利！",SECONDARY)
+sn(s15,15)
+
+# P16 （四）社会和谐基础
+s16=prs.slides.add_slide(prs.slide_layouts[6]);tb(s16,"一、落实企业安全生产主体责任的重要性\n（四）落实主体责任是社会和谐的重要基础")
+y=1.2
+for t in ["1. 安全生产关系社会稳定与和谐","2. 事故会造成人员伤亡和家庭悲剧","3. 企业落实主体责任有助于减轻社会负担","4. 良好的安全生产形势是平安中国建设的重要组成"]:
+    box_item(s16,y,t);y+=.7
+highlight(s16,"安全生产，人人有责，家家平安！")
+sn(s16,16)
+
+# P17 双重预防机制
+s17=prs.slides.add_slide(prs.slide_layouts[6]);tb(s17,"一、落实企业安全生产主体责任的重要性\n附：双重预防机制")
+y=1.15
+for i,line in enumerate(["【风险分级管控】","① 全面辨识风险 — 确定风险点 — 评估风险等级","② 制定管控措施 — 明确责任人和管控周期","③ 动态更新 — 根据实际情况及时调整"],0):
+    c=PRIMARY if i==0 else LIGHT_BG
+    b=s17.shapes.add_shape(12,Inches(.5),Inches(y),Inches(5.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=line;p.font.size=Pt(12);p.font.color.rgb=WHITE if i==0 else TEXT_DARK
+    y+=.55
+y+=0.15
+for i,line in enumerate(["【隐患排查治理】","① 日常排查 — 班前班后检查 — 专项检查","② 分级治理 — 班组级/车间级/厂级","③ 闭环管理 — 整改-验收-销号"],0):
+    c=SECONDARY if i==0 else LIGHT_BG
+    b=s17.shapes.add_shape(12,Inches(.5),Inches(y),Inches(5.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=c;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=line;p.font.size=Pt(12);p.font.color.rgb=WHITE if i==0 else TEXT_DARK
+    y+=.55
+sn(s17,17)
+
+# P18 第一部分小结
+s18=prs.slides.add_slide(prs.slide_layouts[6]);tb(s18,"第一部分小结")
+y=1.5
+for t in ["（一）落实主体责任是法律的基本要求","（二）落实主体责任是企业发展的根本保障","（三）落实主体责任是员工权益的基本保障","（四）落实主体责任是社会和谐的重要基础","附：双重预防机制是落实主体责任的重要抓手"]:
+    box_item(s18,y,t,PRIMARY);y+=.7
+sn(s18,18)
+
+# ==================== 第二部分：存在问题 P19-38 ====================
+# P19 第二部分标题
+s19=prs.slides.add_slide(prs.slide_layouts[6]);part_page(s19,"二","主要存在问题",WARNING)
+sn(s19,19)
+
+# P20 二、概述
+s20=prs.slides.add_slide(prs.slide_layouts[6]);tb(s20,"二、主要存在问题")
+y=1.2
+for n,t in [("（一）","企业层面存在的问题"),("（二）","管理层面的问题"),("（三）","员工层面的问题"),("（四）","外部环境的问题"),("（五）","典型事故案例分析")]:
+    b=s20.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.7));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=tf=b.text_frame;p=tf.paragraphs[0];r1=p.add_run();r1.text=n;r1.font.size=Pt(16);r1.font.bold=True;r1.font.color.rgb=WARNING;r2=p.add_run();r2.text=t;r2.font.size=Pt(16);r2.font.bold=True;r2.font.color.rgb=TEXT_DARK
+    y+=.85
+sn(s20,20)
+
+# P21-22 （一）企业层面问题
+s21=prs.slides.add_slide(prs.slide_layouts[6]);tb(s21,"二、主要存在问题\n（一）企业层面存在的问题")
+y=1.15
+for t in ["1. 安全投入不足，设施设备老化、落后","2. 安全管理制度不健全，或者有制度不落实","3. 安全教育培训流于形式，走过场","4. 隐患排查治理不深入、不彻底，走形式"]:
+    box_item(s21,y,t);y+=.68
+sn(s21,21)
+
+s22=prs.slides.add_slide(prs.slide_layouts[6]);tb(s22,"二、主要存在问题\n（一）企业层面存在的问题")
+y=1.15
+for t in ["5. 应急救援预案不完善，或者演练不足","6. 违章指挥、违章作业行为时有发生","7. 新改扩建项目安全设施\"三同时\"落实不到位","8. 外包工程安全管理主体责任不清"]:
+    box_item(s22,y,t);y+=.68
+highlight(s22,"企业是安全生产的内因和根本，必须切实履行主体责任！",WARNING)
+sn(s22,22)
+
+# P23-24 （二）管理层面问题
+s23=prs.slides.add_slide(prs.slide_layouts[6]);tb(s23,"二、主要存在问题\n（二）管理层面的问题")
+y=1.15
+for t in ["1. 安全生产责任制落实不到位，存在层层衰减现象","2. 安全监管执法\"宽松软虚\"，不敢动真碰硬","3. 安全检查走形式、走过场，发现不了问题"]:
+    box_item(s23,y,t);y+=.68
+sn(s23,23)
+
+s24=prs.slides.add_slide(prs.slide_layouts[6]);tb(s24,"二、主要存在问题\n（二）管理层面的问题")
+y=1.15
+for t in ["4. 安全考核奖惩机制不完善，赏罚不明","5. 安全信息传达不畅通，基层不知情","6. 安全责任追究不严格，大事化小小事化了"]:
+    box_item(s24,y,t);y+=.68
+highlight(s24,"管理是落实主体责任的关键环节，必须敢于动真碰硬！",WARNING)
+sn(s24,24)
+
+# P25-26 （三）员工层面问题
+s25=prs.slides.add_slide(prs.slide_layouts[6]);tb(s25,"二、主要存在问题\n（三）员工层面的问题")
+y=1.15
+for t in ["1. 安全意识淡薄，存在侥幸心理和麻痹思想","2. 安全知识技能不足，不知道如何防范风险","3. 对安全隐患识别能力不强，看不出问题"]:
+    box_item(s25,y,t);y+=.68
+sn(s25,25)
+
+s26=prs.slides.add_slide(prs.slide_layouts[6]);tb(s26,"二、主要存在问题\n（三）员工层面的问题")
+y=1.15
+for t in ["4. 自我保护意识有待提高，违规行为屡禁不止","5. 应急处置和自救互救能力欠缺","6. 不愿意主动报告安全隐患，怕麻烦、怕考核"]:
+    box_item(s26,y,t);y+=.68
+highlight(s26,"员工是安全生产的第一道防线，全员参与才能确保安全！")
+sn(s26,26)
+
+# P27-28 （四）外部环境问题
+s27=prs.slides.add_slide(prs.slide_layouts[6]);tb(s27,"二、主要存在问题\n（四）外部环境的问题")
+y=1.15
+for t in ["1. 部分行业产能过剩，安全投入受限","2. 小微企业安全基础薄弱，管理水平低","3. 中介机构安全服务市场不规范"]:
+    box_item(s27,y,t);y+=.68
+sn(s27,27)
+
+s28=prs.slides.add_slide(prs.slide_layouts[6]);tb(s28,"二、主要存在问题\n（四）外部环境的问题")
+y=1.15
+for t in ["4. 安全监管力量配置不足，监管能力有待提高","5. 社会安全文化建设滞后，安全氛围不够浓厚","6. 安全技术支撑能力有待加强"]:
+    box_item(s28,y,t);y+=.68
+highlight(s28,"外部环境是影响因素，内因才是根本，外因通过内因起作用！")
+sn(s28,28)
+
+# P29-33 （五）典型事故案例
+cases=[
+    ("案例一：福建泉州欣佳酒店\"3·7\"坍塌事故",["（1）事故概况：2020年3月7日，泉州市鲤城区欣佳酒店发生坍塌，造成29人死亡","（2）直接原因：违法违规建设施工，原四层钢结构被违规改建为七层","（3）主要教训：违法违规建设、监管严重缺位、隐患长期存在"]),
+    ("案例二：湖北十堰燃气爆炸事故",["（1）事故概况：2021年6月13日，十堰市张湾区艳湖社区集贸市场发生燃气爆炸，25人死亡","（2）直接原因：燃气管道长期泄漏，达到爆炸极限后遇明火爆炸","（3）主要教训：管道巡检不到位、监测预警不完善、应急处置不力"]),
+    ("案例三：湖南长沙\"4·29\"自建房倒塌事故",["（1）事故概况：2022年4月29日，长沙市望城区一居民自建房倒塌，54人死亡","（2）直接原因：房屋地基承载力不足，违规加盖导致荷载大幅增加","（3）主要教训：违规建设、监管缺失、排查整治不力"]),
+    ("案例四：北京丰台长峰医院火灾事故",["（1）事故概况：2023年4月18日，北京长峰医院住院部发生火灾，29人死亡","（2）直接原因：施工作业产生火花引燃涂料挥发物，形成爆燃","（3）主要教训：动火作业安全管理缺失、消防设施故障、应急疏散不力"]),
+    ("案例五：广东梅大高速塌方灾害",["（1）事故概况：2024年5月1日，梅大高速茶阳段塌方灾害，48人死亡","（2）直接原因：连续强降雨导致路基边坡失稳，发生滑坡塌方","（3）主要教训：地质风险评估不足、监测预警不完善、应急管控不及时"])
+]
+for i,(title,items) in enumerate(cases,29):
+    s=prs.slides.add_slide(prs.slide_layouts[6]);tb(s,f"二、主要存在问题\n（五）典型事故案例分析",WARNING)
+    y=1.15
+    for t in items:
+        b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.75));b.fill.solid();b.fill.fore_color.rgb=RGBColor(255,245,245);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(13);p.font.color.rgb=TEXT_DARK
+        y+=.8
+    sn(s,i)
+
+# P34 事故共性教训
+s34=prs.slides.add_slide(prs.slide_layouts[6]);tb(s34,"二、主要存在问题\n（五）典型事故案例分析",WARNING)
+y=1.15
+for t in ["1. 主体责任不落实——企业安全意识淡薄，安全投入严重不足","2. 主要负责人职责履行不到位，重生产轻安全","3. 安全管理机构不健全，安全制度不落实","4. 隐患排查治理不深入，双重预防机制流于形式"]:
+    box_item(s34,y,t);y+=.68
+highlight(s34,"血的教训——主体责任不落实是一切事故的根源！",WARNING)
+sn(s34,34)
+
+# P35-37 第二部分小结
+s35=prs.slides.add_slide(prs.slide_layouts[6]);tb(s35,"第二部分小结")
+y=1.2
+for t in ["（一）企业层面：投入不足、管理不严、培训不够","（二）管理层面：责任衰减、执法不严、考核不明","（三）员工层面：意识淡薄、技能不足、不愿报告","（四）外部环境：基础薄弱、监管不足、氛围不浓"]:
+    box_item(s35,y,t);y+=.68
+sn(s35,35)
+
+s36=prs.slides.add_slide(prs.slide_layouts[6]);tb(s36,"第二部分小结")
+y=1.2
+for t in ["（五）典型事故案例教训：","1. 福建泉州欣佳酒店——违法违规建设","2. 湖北十堰燃气爆炸——管道巡检不到位","3. 长沙自建房倒塌——监管缺失","4. 北京长峰医院火灾——动火作业管理缺失","5. 广东梅大高速塌方——监测预警不足"]:
+    box_item(s36,y,t);y+=.65
+sn(s36,36)
+
+s37=prs.slides.add_slide(prs.slide_layouts[6]);tb(s37,"第二部分小结")
+b=s37.shapes.add_shape(12,Inches(1),Inches(2.5),Inches(8),Inches(2));b.fill.solid();b.fill.fore_color.rgb=RGBColor(255,245,245);b.line.color.rgb=WARNING;b.line.width=Pt(3);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text="核心结论：主体责任不落实是一切安全生产事故的根本原因！\n\n必须坚持\"两个不放过\"原则：\n• 隐患不消除不放过\n• 责任不落实不放过";p.font.size=Pt(18);p.font.bold=True;p.font.color.rgb=WARNING;p.alignment=PP_ALIGN.CENTER
+sn(s37,37)
+
+# ==================== 第三部分：领导力提升 P38-68 ====================
+# P38 第三部分标题
+s38=prs.slides.add_slide(prs.slide_layouts[6]);part_page(s38,"三","提升领导力带动企业落实责任",SECONDARY)
+sn(s38,38)
+
+# P39 三、概述
+s39=prs.slides.add_slide(prs.slide_layouts[6]);tb(s39,"三、提升领导力带动企业落实责任")
+y=1.2
+for n,t in [("（一）","领导者安全角色认知"),("（二）","领导者安全行为规范"),("（三）","安全领导力提升路径"),("（四）","安全文化建设推动")]:
+    b=s39.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.7));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=tf=b.text_frame;p=tf.paragraphs[0];r1=p.add_run();r1.text=n;r1.font.size=Pt(16);r1.font.bold=True;r1.font.color.rgb=SECONDARY;r2=p.add_run();r2.text=t;r2.font.size=Pt(16);r2.font.bold=True;r2.font.color.rgb=TEXT_DARK
+    y+=.85
+sn(s39,39)
+
+# P40-41 （一）领导者角色认知
+s40=prs.slides.add_slide(prs.slide_layouts[6]);tb(s40,"三、提升领导力带动企业落实责任\n（一）领导者安全角色认知")
+y=1.15
+for role,desc in [("决策者","将安全纳入企业战略规划"),("践行者","以身作则遵守安全规定"),("推动者","持续推进安全文化建设"),("监督者","督促安全责任落实")]:
+    b=s40.shapes.add_shape(12,Inches(.5),Inches(y),Inches(1.3),Inches(.55));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=role;p.font.size=Pt(13);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+    t2=s40.shapes.add_textbox(Inches(2),Inches(y+.08),Inches(7.5),Inches(.5));tf2=t2.text_frame;p2=tf2.paragraphs[0];p2.text=desc;p2.font.size=Pt(14);p2.font.color.rgb=TEXT_DARK
+    y+=.78
+highlight(s40,"领导重视是抓好安全生产工作的关键！",SECONDARY)
+sn(s40,40)
+
+s41=prs.slides.add_slide(prs.slide_layouts[6]);tb(s41,"三、提升领导力带动企业落实责任\n（一）领导者安全角色认知")
+y=1.15
+for t in ["1. 走动管理：每天至少一次深入现场检查","2. 关注重点：人员状态、设备设施、作业环境","3. 发现问题：及时记录，建立台账，督促整改","4. 沟通交流：与员工沟通安全话题，听取意见建议","5. 示范引领：营造高层重视安全的氛围"]:
+    box_item(s41,y,t);y+=.68
+sn(s41,41)
+
+# P42-44 （二）领导者行为规范
+s42=prs.slides.add_slide(prs.slide_layouts[6]);tb(s42,"三、提升领导力带动企业落实责任\n（二）领导者安全行为规范")
+y=1.15
+for t in ["1. 亲自研究部署安全工作，定期召开安全会议","2. 定期带队检查安全生产，深入现场发现问题","3. 带头参加安全教育培训，提升自身安全素养","4. 及时研究解决安全问题，整改隐患不过夜"]:
+    box_item(s42,y,t);y+=.68
+sn(s42,42)
+
+s43=prs.slides.add_slide(prs.slide_layouts[6]);tb(s43,"三、提升领导力带动企业落实责任\n（二）领导者安全行为规范")
+y=1.15
+for t in ["5. 建立健全安全考核机制，奖惩分明促落实","6. 公开表彰安全先进典型，营造良好安全氛围","7. 发生事故第一时间赶赴现场，指挥应急处置","8. 主动接受职工代表大会监督，报告安全工作情况"]:
+    box_item(s43,y,t);y+=.68
+highlight(s43,"领导者是安全生产的第一责任人，必须以上率下！")
+sn(s43,43)
+
+s44=prs.slides.add_slide(prs.slide_layouts[6]);tb(s44,"三、提升领导力带动企业落实责任\n（二）领导者安全行为规范")
+y=1.15
+for t in ["【安全决策原则】","1）安全优先原则：安全与效率冲突时，安全优先","2）预防优先原则：事前投入大于事后代价","3）综合治理原则：多措并举、系统推进","4）科学决策原则：重大决策必须安全论证","5）责任追究原则：发生事故必须严肃追责"]:
+    if t=="【安全决策原则】":
+        b=s44.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(13);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s44,y,t);y-=.02
+    y+=.62
+sn(s44,44)
+
+# P45-48 （三）安全领导力提升路径
+s45=prs.slides.add_slide(prs.slide_layouts[6]);tb(s45,"三、提升领导力带动企业落实责任\n（三）安全领导力提升路径")
+y=1.15
+for t in ["1. 理念先行：树立\"安全第一\"理念，形成安全文化认同","2. 制度保障：完善安全责任体系，明确各层各级职责","3. 能力提升：加强安全培训学习，提高安全管理水平","4. 行为示范：领导以身作则，带动全员安全行为","5. 持续改进：定期评估反馈，不断优化安全管理"]:
+    box_item(s45,y,t);y+=.68
+highlight(s45,"安全领导力提升是长期过程，需要持续学习和实践！",SECONDARY)
+sn(s45,45)
+
+s46=prs.slides.add_slide(prs.slide_layouts[6]);tb(s46,"三、提升领导力带动企业落实责任\n（三）安全领导力提升路径")
+y=1.15
+for t in ["【理念先行】具体措施","1）将安全纳入企业战略规划","2）建立全员安全责任体系","3）完善安全管理制度流程","4）健全安全考核奖惩机制"]:
+    if '【理念先行】' in t:
+        b=s46.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s46,y,t);y-=.02
+    y+=.62
+sn(s46,46)
+
+s47=prs.slides.add_slide(prs.slide_layouts[6]);tb(s47,"三、提升领导力带动企业落实责任\n（三）安全领导力提升路径")
+y=1.15
+for t in ["【能力提升】具体措施","1）参加安全管理培训，提升专业能力","2）学习先进企业经验，拓展视野","3）领导带头遵守安全规定","4）领导带头参与安全活动"]:
+    if '【能力提升】' in t:
+        b=s47.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s47,y,t);y-=.02
+    y+=.62
+sn(s47,47)
+
+s48=prs.slides.add_slide(prs.slide_layouts[6]);tb(s48,"三、提升领导力带动企业落实责任\n（三）安全领导力提升路径")
+y=1.15
+for t in ["【持续改进】具体措施","1）定期开展安全绩效评估","2）分析安全形势，查找薄弱环节","3）学习借鉴先进经验","4）持续改进安全工作"]:
+    if '【持续改进】' in t:
+        b=s48.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s48,y,t);y-=.02
+    y+=.62
+highlight(s48,"安全领导力提升路径：理念→制度→能力→行为→改进！",SECONDARY)
+sn(s48,48)
+
+# P49-56 （四）安全文化建设
+s49=prs.slides.add_slide(prs.slide_layouts[6]);tb(s49,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for title,desc in [("安全愿景","零事故、零伤害、零污染"),("安全使命","保障员工生命安全，守护企业健康发展"),("安全价值观","安全是最大的效益，安全是最好的业绩"),("安全行为准则","遵章守纪、按章操作、拒绝违章")]:
+    b=s49.shapes.add_shape(12,Inches(.5),Inches(y),Inches(9),Inches(.65));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];r1=p.add_run();r1.text=title+"：";r1.font.size=Pt(13);r1.font.bold=True;r1.font.color.rgb=SECONDARY;r2=p.add_run();r2.text=desc;r2.font.size=Pt(13);r2.font.color.rgb=TEXT_DARK
+    y+=.72
+highlight(s49,"文化管人管灵魂，制度管人管行为！",SECONDARY)
+sn(s49,49)
+
+s50=prs.slides.add_slide(prs.slide_layouts[6]);tb(s50,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for t in ["【安全生产责任体系】","1）横向到边：各职能部门各司其职、齐抓共管","2）纵向到底：层层分解，责任到人","3）网格化管理：不留死角、不留空白"]:
+    if '【安全生产责任体系】' in t:
+        b=s50.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.8),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s50,y,t);y-=.02
+    y+=.62
+sn(s50,50)
+
+s51=prs.slides.add_slide(prs.slide_layouts[6]);tb(s51,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for t in ["【安全生产标准化建设】","1）一级：国家评审（评分≥90）","2）二级：省级评审（评分≥75）","3）三级：市县级评审（评分≥60）","附：建立并保持安全生产管理体系，实现岗位达标、专业达标、企业达标"]:
+    if '【安全生产标准化建设】' in t:
+        b=s51.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.8),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s51,y,t);y-=.02
+    y+=.62
+sn(s51,51)
+
+s52=prs.slides.add_slide(prs.slide_layouts[6]);tb(s52,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for t in ["【杜邦安全管理十大理念】","1）所有安全事故都可以预防","2）各级管理层对安全负有直接责任","3）各级管理者必须亲自检查安全","4）员工必须接受严格的安全培训","5）安全是聘用的条件之一"]:
+    if '【杜邦安全管理十大理念】' in t:
+        b=s52.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.8),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s52,y,t);y-=.02
+    y+=.58
+sn(s52,52)
+
+s53=prs.slides.add_slide(prs.slide_layouts[6]);tb(s53,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for t in ["6）员工必须参与安全事务","7）隐患必须及时整改","8）工作外的安全与工作内安全同样重要","9）安全是衡量管理业绩的标准","10）良好的安全创造良好的业绩"]:
+    box_item(s53,y,t);y+=.58
+sn(s53,53)
+
+s54=prs.slides.add_slide(prs.slide_layouts[6]);tb(s54,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+y=1.15
+for t in ["【班组安全管理】","1）班前安全喊话——布置任务同时布置安全","2）班中安全互保——互相监督、互相提醒","3）班后安全总结——总结经验、改进不足"]:
+    if '【班组安全管理】' in t:
+        b=s54.shapes.add_shape(12,Inches(.5),Inches(y),Inches(2.5),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+    else:
+        box_item(s54,y,t);y-=.02
+    y+=.62
+highlight(s54,"班组是安全生产的第一道防线！")
+sn(s54,54)
+
+s55=prs.slides.add_slide(prs.slide_layouts[6]);tb(s55,"三、提升领导力带动企业落实责任\n（四）安全文化建设推动")
+b=s55.shapes.add_shape(12,Inches(1.5),Inches(1.5),Inches(7),Inches(1.2));b.fill.solid();b.fill.fore_color.rgb=PRIMARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text="2024年安全生产月主题";p.font.size=Pt(16);p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+p2=tf.add_paragraph();p2.text="\"人人讲安全、个个会应急\"";p2.font.size=Pt(28);p2.font.bold=True;p2.font.color.rgb=WHITE;p2.alignment=PP_ALIGN.CENTER
+y=2.9
+for pt in ["1）强化安全发展理念","2）普及安全知识技能","3）提升应急处置能力","4）营造浓厚安全氛围"]:
+    box_item(s55,y,pt);y+=.68
+sn(s55,55)
+
+# P56-60 安全管理技术
+techs=[
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【安全风险管控技术】","1）安全评价技术：预评价、验收评价、现状评价","2）危险有害因素辨识：人、物、环境、管理因素","3）风险评估方法：SCL、JHA、FTA、HAZOP等"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【隐患排查治理技术】","1）隐患分类：一般隐患与重大隐患分级管理","2）排查方法：日常巡检、专项检查、综合检查、专家检查","3）闭环管理：发现→报告→评估→整改→验收→销号"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【安全监测监控技术】","1）视频监控系统：24小时实时监控，重点区域全覆盖","2）气体监测系统：实时监测有毒有害气体浓度，超限报警","3）人员定位系统：掌握人员位置，实现智能考勤和应急救援"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【智慧安全技术应用】","1）物联网技术：设备互联互通，数据实时采集传输","2）大数据分析：海量数据分析挖掘，精准发现问题","3）人工智能：AI智能识别隐患，自动预警提醒"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【应急管理体系建设】","1）应急预案体系：综合预案、专项预案、现场处置方案","2）应急救援队伍：专职救援队、兼职救援队、志愿者队伍","3）应急演练：计划制定、实战演练、总结评估、持续改进"])
+]
+for i,(title,items) in enumerate(techs,56):
+    s=prs.slides.add_slide(prs.slide_layouts[6]);tb(s,title)
+    y=1.15
+    for t in items:
+        if '【' in t and '】' in t:
+            b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(3),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+        else:
+            box_item(s,y,t);y-=.02
+        y+=.62
+    sn(s,i)
+
+# P61-64 专业领域安全
+special=[
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【特种设备安全管理】","1）范围：锅炉、压力容器、压力管道、电梯、起重机械等","2）管理要求：办理使用登记、定期检验检测、配备作业人员","3）日常管理：日常维护保养、定期自行检查"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【危险化学品安全管理】","1）危化品管理：实施目录管理、规范储存管理、严格作业审批","2）储存管理：分类储存、防火防爆、温湿度控制","3）作业管理：动火作业、有限空间作业等必须执行作业许可"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【建筑施工安全管理】","1）事故类型：高处坠落52%、物体打击15%、坍塌10%、机械伤害9%","2）预防措施：严格落实施工安全措施费、强化特种作业人员管理","3）重点领域：基坑支护、脚手架搭设、临时用电、施工升降机"]),
+    ("三、提升领导力带动企业落实责任\n（四）安全文化建设推动",["【应急处置程序】","1）第一时间：启动应急响应，组织人员疏散撤离","2）第二时间：报告事故情况，拨打119/120/110","3）第三时间：组织先期处置，控制事态发展","4）第四时间：配合救援调查，分析事故原因"])
+]
+for i,(title,items) in enumerate(special,61):
+    s=prs.slides.add_slide(prs.slide_layouts[6]);tb(s,title)
+    y=1.15
+    for t in items:
+        if '【' in t and '】' in t:
+            b=s.shapes.add_shape(12,Inches(.5),Inches(y),Inches(3),Inches(.5));b.fill.solid();b.fill.fore_color.rgb=SECONDARY;b.line.fill.background();tf=b.text_frame;p=tf.paragraphs[0];p.text=t;p.font.size=Pt(12);p.font.bold=True;p.font.color.rgb=WHITE
+        else:
+            box_item(s,y,t);y-=.02
+        y+=.62
+    sn(s,i)
+
+# P65-67 第三部分小结
+summaries=[
+    ("三、提升领导力带动企业落实责任",["（一）领导者安全角色认知：决策者、践行者、推动者、监督者","（二）领导者安全行为规范：亲自部署、带头检查、参与培训、及时整改","（三）安全领导力提升路径：理念先行、制度保障、能力提升、行为示范、持续改进","（四）安全文化建设推动：核心理念、责任体系、标准化建设、班组管理"]),
+    ("三、提升领导力带动企业落实责任",["【安全管理技术】风险管控、隐患排查、监测监控、智慧安全","【专业领域安全】特种设备、危化品、建筑施工、应急处置"]),
+    ("三、提升领导力带动企业落实责任",["核心结论：提升安全领导力是落实主体责任的关键！\n\n• 领导重视是抓好安全生产工作的关键\n• 以上率下才能带动全员参与\n• 文化引领才能实现长治久安"])
+]
+for i,item in enumerate(summaries,65):
+    s=prs.slides.add_slide(prs.slide_layouts[6]);tb(s,item[0])
+    if i==2:
+        b=s.shapes.add_shape(12,Inches(1),Inches(2),Inches(8),Inches(2.5));b.fill.solid();b.fill.fore_color.rgb=RGBColor(240,255,245);b.line.color.rgb=SECONDARY;b.line.width=Pt(3);tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text=item[1][0];p.font.size=Pt(16);p.font.bold=True;p.font.color.rgb=SECONDARY;p.alignment=PP_ALIGN.CENTER
+    else:
+        y=1.15
+        for t in item[1]:
+            box_item(s,y,t);y+=.65
+    sn(s,i)
+
+# P68 总结与承诺
+s68=prs.slides.add_slide(prs.slide_layouts[6]);tb(s68,"培训总结与承诺")
+y=1.15
+for t in ["1. 深入开展安全隐患大排查大整治","2. 全面推进安全生产标准化建设","3. 切实加强应急能力建设","4. 持续强化安全培训和宣传教育","5. 加快安全管理信息化建设"]:
+    box_item(s68,y,t);y+=.65
+highlight(s68,"落实主体责任，确保安全生产！",PRIMARY)
+sn(s68,68)
+
+# P69 庄严承诺
+s69=prs.slides.add_slide(prs.slide_layouts[6])
+b=s69.shapes.add_shape(12,Inches(1),Inches(1.5),Inches(8),Inches(4));b.fill.solid();b.fill.fore_color.rgb=PRIMARY;b.line.fill.background();tf=b.text_frame;tf.word_wrap=True;p=tf.paragraphs[0];p.text="我郑重承诺：";p.font.size=Pt(20);p.font.bold=True;p.font.color.rgb=WHITE;p.alignment=PP_ALIGN.CENTER
+for pr in ["✓ 严格遵守安全生产法律法规","✓ 认真落实安全生产主体责任","✓ 扎实开展安全隐患排查治理","✓ 不断提升安全管理能力和水平","✓ 切实保障员工生命安全和身体健康"]:
+    p2=tf.add_paragraph();p2.text=pr;p2.font.size=Pt(16);p2.font.color.rgb=WHITE;p2.alignment=PP_ALIGN.CENTER
+sn(s69,69)
+
+# P70-80 附页
+for i in range(70,81):
+    s=prs.slides.add_slide(prs.slide_layouts[6]);tb(s,f"附页 {i-69}")
+    b=s.shapes.add_shape(12,Inches(1),Inches(3),Inches(8),Inches(2));b.fill.solid();b.fill.fore_color.rgb=LIGHT_BG;tf=b.text_frame;p=tf.paragraphs[0];p.text=f"第{i-69}页备用内容";p.font.size=Pt(18);p.font.color.rgb=PRIMARY;p.alignment=PP_ALIGN.CENTER
+    sn(s,i)
+
+prs.save('/Users/mac/.openclaw/workspace/安全生产主体责任PPT_最终版.pptx')
+print(f"PPT生成完成！共{len(prs.slides)}页")
+print("序号层级：一级:一、二… 二级:（一） 三级:1. 四级:1） 五级:(1)")

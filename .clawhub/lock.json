@@ -223,11 +223,11 @@
     },
     "meeting-notes-pro": {
       "version": "1.0.0",
-      "installedAt": 1775828709020
+      "installedAt": 1775865997674
     },
     "email-assistant-pro": {
       "version": "1.0.0",
-      "installedAt": 1775828761945
+      "installedAt": 1775865976474
     },
     "document-pro": {
       "version": "1.0.0",
@@ -235,7 +235,7 @@
     },
     "learning-cards": {
       "version": "1.1.1",
-      "installedAt": 1775828776267
+      "installedAt": 1775866033662
     },
     "flashcards": {
       "version": "1.0.0",
@@ -243,7 +243,7 @@
     },
     "research-assistant": {
       "version": "1.0.1",
-      "installedAt": 1775828828549
+      "installedAt": 1775865986811
     },
     "notectl": {
       "version": "1.0.0",
@@ -251,15 +251,55 @@
     },
     "strategic-competitor-analysis": {
       "version": "1.0.0",
-      "installedAt": 1775828887388
+      "installedAt": 1775866033523
     },
     "lark-calendar": {
       "version": "1.0.0",
-      "installedAt": 1775828894406
+      "installedAt": 1775865988139
     },
     "task-manager": {
       "version": "1.1.0",
-      "installedAt": 1775828942362
+      "installedAt": 1775866023538
+    },
+    "ai-meeting-notes": {
+      "version": "1.0.3",
+      "installedAt": 1775865976717
+    },
+    "flash-forge": {
+      "version": "1.0.0",
+      "installedAt": 1775865987886
+    },
+    "smart-weekly-report": {
+      "version": "1.0.0",
+      "installedAt": 1775866021775
+    },
+    "daily-report-writer": {
+      "version": "1.0.0",
+      "installedAt": 1775866055320
+    },
+    "document-processor": {
+      "version": "1.0.0",
+      "installedAt": 1775866083995
+    },
+    "seo-competitor-analysis": {
+      "version": "1.0.0",
+      "installedAt": 1775866092944
+    },
+    "task-manager-easy": {
+      "version": "1.0.0",
+      "installedAt": 1775866093255
+    },
+    "spaced-repetition-teaching": {
+      "version": "1.0.0",
+      "installedAt": 1775866093387
+    },
+    "competitor-analysis-report": {
+      "version": "1.0.0",
+      "installedAt": 1775866099881
+    },
+    "notes": {
+      "version": "1.1.3",
+      "installedAt": 1775866100534
     }
   }
 }
