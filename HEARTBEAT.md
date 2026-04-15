@@ -40,3 +40,37 @@ openclaw cron list 2>&1 | grep -E "error|fail"
 ### 记录文件
 - 失败记录：memory/cron-failures.md
 - 每日报告：memory/YYYY-MM-DD.md
+
+## 重要教训：飞书文件发送方式（2026-04-15）
+
+### 问题
+道德经课件发送后三先生打不开，原因是飞书发送文件需要用 `media` 参数
+
+### 正确方式
+```python
+message(
+    action="send",
+    channel="feishu",
+    target="user:ou_128ad31d43d38fb3bb5f252161fd0a5e",
+    message="文件说明",
+    media="/完整/文件/路径/文件名.pptx"  # 用media参数
+)
+```
+
+### 错误方式
+```python
+# 用filePath参数发送pptx文件会失败
+message(
+    action="send",
+    channel="feishu",
+    filePath="/完整/文件/路径/文件名.pptx"  # 这种方式不行
+)
+```
+
+### 验证结果
+- `media` 参数：发送的附件可以正常打开 ✅
+- `filePath` 参数：发送的附件打不开 ❌
+
+### 备份文件位置
+- 成果文件库：~/Desktop/小燕子成果文件库/
+- 课件目录：~/.openclaw/workspace/courses/
