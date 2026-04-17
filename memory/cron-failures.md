@@ -1,72 +1,30 @@
-# Cron 任务健康检查记录
+# Cron 健康检查日志
 
-## 检查时间
-2026-04-18 03:49 (Asia/Shanghai)
+## 2026-04-18 06:04 AM (检查时间)
 
-## 检查结果
+### 检查结果：✅ 通过 - 无失败任务
 
-### 总体状态：✅ 正常
+```
+ID                                   Name                     Schedule                         Next       Last       Status    
+9f9231e5-eee8-4e15-b3dc-32ab3c3120b1 cron任务健康检查-每2小时          cron 0 */2 * * * @ Asia/Shang... <1m ago    2h ago     running   
+95b1c201-a28b-4410-a85e-c5c0650eb728 会议提醒-中心组扩大会4月18日9:00     at 2026-04-17 23:00Z             in 55m     -          idle      
+fc9fe341-59e1-437f-bd23-5b4f6cbbf3bc 每日要闻早报                   cron 50 7 * * * @ Asia/Shangh... in 2h      18h ago    ok        
+7e50d55c-4498-4f8b-926c-ae5be6089558 数据备份-早上10点               cron 0 10 * * * @ Asia/Shangh... in 4h      20h ago    ok        
+d3328768-cc5b-48d6-a9e3-38a5e7283e11 【国学】道德经课件发送              cron 0 10 * * * @ Asia/Shangh... in 4h      10h ago    ok        
+f942ee77-edd5-47e8-aab3-78d6a24f96bf 英语学习-周末10点               cron 0 10 * * 6,0 @ Asia/Shan... in 4h      -          idle      
+f32287f7-3574-4157-8e1f-b20f4405d2c9 【国学】道德经每日学习              cron 30 11 * * * @ Asia/Shang... in 5h      12h ago    ok        
+8563ba09-83b1-41df-b49b-415821e15b4d 日程同步-每天晚8点               cron 0 20 * * * @ Asia/Shangh... in 14h     10h ago    ok        
+c8312eaa-6897-4a36-bb9b-16b492ccb22d 每日晚8点事项清单                cron 0 20 * * * @ Asia/Shangh... in 14h     10h ago    ok        
+d08bb063-0d25-4123-9c9e-d896a36ee0fd 记忆库每日自动备份-晚10点           cron 0 22 * * * @ Asia/Shangh... in 16h     2h ago     ok        
+f6d658ef-77b1-4d76-9c3a-d93cc8c56f84 数据备份-晚上10点               cron 0 22 * * * @ Asia/Shangh... in 16h     2h ago     ok        
+5560c520-92c7-4bde-814a-da406c30e8ce 英语学习-工作日12点              cron 0 12 * * 1-5 @ Asia/Shan... in 2d      15h ago    ok        
+6bfbbc5e-1185-4776-aa14-15508bc9bde3 英语学习-工作日晚8点              cron 0 20 * * 1-5 @ Asia/Shan... in 3d      10h ago    ok        
+11cd7d1d-a3b2-4fb6-bbe8-c27b9c636b0b 记忆备份-每月1日凌晨              cron 0 0 1 * * (exact)           in 13d     -          idle      
+9403a9a1-f4bc-49ab-9752-a524d1001942 提醒-跟靖正聚会                 cron 0 10 10 5 * @ Asia/Shang... in 22d     -          idle      
+97603f79-f433-4056-b70d-a173c4b5cde6 会议提醒-BX管理内审末次4月16日9:00   cron 0 7 16 4 * @ Asia/Shangh... in 363d    2d ago     ok        
+```
 
-共检测到 20 个 cron 任务，无错误、无失败、无 disabled 任务。
-
-### 任务状态分布
-| 状态 | 数量 | 说明 |
-|------|------|------|
-| running | 5 | 正在调度运行 |
-| ok | 11 | 正常 |
-| idle | 5 | 等待触发 |
-
-### 关键周期性任务状态
-
-| 任务名 | 状态 | 上次运行 |
-|--------|------|----------|
-| 记忆库每日自动备份-晚10点 | running | 1天前 |
-| 数据备份-晚上10点 | running | 1天前 |
-| cron任务健康检查-每2小时 | running | 8小时前 |
-| 邮件检查-每3小时 | running | 10小时前 |
-| 每日要闻早报 | ok | 16小时前 |
-| 数据备份-早上10点 | ok | 18小时前 |
-| 【国学】道德经课件发送 | ok | 8小时前 |
-| 【国学】道德经每日学习 | ok | 10小时前 |
-| 日程同步-每天晚8点 | ok | 8小时前 |
-| 每日晚8点事项清单 | ok | 8小时前 |
-| 邮件检查-早上9点 | ok | 19小时前 |
-| 英语学习-工作日12点 | ok | 13小时前 |
-| 英语学习-工作日晚8点 | ok | 8小时前 |
-
-### 注意事项
-- 95b1c201（会议提醒-中心组扩大会4月18日9:00）：idle 状态，预期3小时后触发
-- f942ee77（英语学习-周末10点）：idle 状态，等待周末
-- 57d280d3（邮件清理-每周日凌晨2点）：idle 状态，等待周日
-- 30cb9543（邮件摘要-每周一早上9点）：idle 状态，等待周一
-- 11cd7d1d（记忆备份-每月1日凌晨）：idle 状态，等待下月1日
-- 9403a9a1（提醒-跟靖正聚会）：idle 状态，等待5月10日
-
-### 错误检查
-- `openclaw cron list | grep -E error|fail` → **无匹配**
-- 所有任务状态无 error/fail/disabled 标记
-
----
-**结论：所有 cron 任务运行正常，无需干预。**
-
-## 健康检查记录 - 2026-04-18 04:04 (Asia/Shanghai)
-
-**检查结果：✅ 所有任务正常，无失败任务**
-
-| 任务名称 | 状态 | 上次运行 |
-|---------|------|---------|
-| cron任务健康检查-每2小时 | running | 16m ago |
-| 每日要闻早报 | ok | 16h ago |
-| 数据备份-早上10点 | ok | 18h ago |
-| 【国学】道德经课件发送 | ok | 8h ago |
-| 【国学】道德经每日学习 | ok | 10h ago |
-| 日程同步-每天晚8点 | ok | 8h ago |
-| 每日晚8点事项清单 | ok | 8h ago |
-| 记忆库每日自动备份-晚10点 | ok | 16m ago |
-| 数据备份-晚上10点 | ok | 16m ago |
-| 英语学习-工作日晚8点 | ok | 8h ago |
-| 英语学习-工作日12点 | ok | 13h ago |
-
-**即将执行的任务：**
-- 会议提醒-中心组扩大会4月18日9:00 (in 3h, 状态: idle)
-
+### 结论
+- ✅ 无 error/fail 任务
+- ✅ 所有任务状态正常 (running/ok/idle)
+- ✅ 不需要手动恢复任何任务
