@@ -1,6 +1,7 @@
 {
   "provider": "qq",
   "email": "15856830@qq.com",
+  "password": "iginuhihmfxcbhad",
   "smtp_server": "smtp.qq.com",
   "smtp_port": 587,
   "imap_server": "imap.qq.com",
