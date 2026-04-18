@@ -1,0 +1,114 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "/Users/mac/.openclaw/workspace",
+      "models": {
+        "minimax/MiniMax-M2.7": {
+          "alias": "Minimax"
+        }
+      },
+      "model": {
+        "primary": "minimax/MiniMax-M2.7",
+        "fallbacks": [
+          "modelstudio/qwen3.5-plus"
+        ]
+      }
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "bcaa701d9c360f75851100700cb2c90bb9989a1a93b914c0"
+    }
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.4.2",
+    "lastTouchedAt": "2026-04-18T05:47:08.780Z"
+  },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "minimax": {
+        "baseUrl": "https://api.minimaxi.com/anthropic",
+        "models": [
+          {
+            "id": "MiniMax-M2.7",
+            "name": "MiniMax M2.7",
+            "reasoning": true,
+            "input": [
+              "text"
+            ],
+            "cost": {
+              "input": 0.3,
+              "output": 1.2,
+              "cacheRead": 0.06,
+              "cacheWrite": 0.375
+            },
+            "contextWindow": 204800,
+            "maxTokens": 131072
+          }
+        ],
+        "api": "anthropic-messages",
+        "authHeader": true
+      }
+    }
+  },
+  "auth": {
+    "profiles": {
+      "minimax:cn": {
+        "provider": "minimax",
+        "mode": "api_key"
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-04-09T22:37:36.815Z",
+    "lastRunVersion": "2026.4.2",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "plugins": {
+    "entries": {
+      "minimax": {
+        "enabled": true
+      },
+      "feishu": {
+        "enabled": true
+      }
+    }
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "defaultAccount": "main",
+      "domain": "feishu",
+      "connectionMode": "websocket",
+      "reactionNotifications": "none",
+      "typingIndicator": false,
+      "resolveSenderNames": true,
+      "accounts": {
+        "main": {
+          "appId": "cli_a95ce60359395bce",
+          "appSecret": "SbvGzcHAFTjSCMItcT4gAd1S07CLdUQV"
+        },
+        "default": {
+          "dmPolicy": "open",
+          "groupPolicy": "allow",
+          "allowFrom": [
+            "*"
+          ]
+        }
+      },
+      "tools": {
+        "doc": false
+      },
+      "mediaLocalRoots": [
+        "/Users/mac/.openclaw/media",
+        "/Users/mac/.openclaw/workspace",
+        "/Users/mac/Desktop",
+        "/Users/mac/Desktop/小燕子成果文件库"
+      ]
+    }
+  }
+}

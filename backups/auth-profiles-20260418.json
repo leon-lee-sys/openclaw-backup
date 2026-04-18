@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "profiles": {
+    "minimax:cn": {
+      "type": "api_key",
+      "provider": "minimax",
+      "key": "sk-cp-cD3sm_zaawn_4ODTPoRPeSpZ7ESLorike9A5axVBfypyCqOsk0ke8_cvdMkPoXTCLFLbkUkhBRc0pN6NQwjUY_11NSecHWa_u5FzgDc0RDBM6ikwR2Pp9EY"
+    },
+    "modelstudio:default": {
+      "type": "api_key",
+      "provider": "modelstudio",
+      "key": "sk-6fdfc5d1ef5b4affa1b150885295797f"
+    }
+  },
+  "lastGood": {
+    "minimax": "minimax:cn",
+    "modelstudio": "modelstudio:default"
+  },
+  "usageStats": {
+    "minimax:cn": {
+      "errorCount": 0,
+      "lastUsed": 1776501863790,
+      "lastFailureAt": 1776326872521
+    },
+    "modelstudio:default": {
+      "errorCount": 1,
+      "lastUsed": 1776491103758,
+      "failureCounts": {
+        "auth": 1
+      },
+      "lastFailureAt": 1776493311047,
+      "cooldownUntil": 1776493341047,
+      "cooldownReason": "auth"
+    }
+  }
+}
