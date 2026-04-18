@@ -258,9 +258,8 @@
 1. **配置修复：** 移除所有modelstudio无效fallback，仅保留MiniMax
 2. **超时优化：** 3个失败任务的timeout从默认值提升到300秒
 3. **故障报告：** 已记录到 memory/cron-failures.md
-
-### 待处理
-- **modelstudio API Key续期：** 需要到阿里云DashScope控制台续期（auth profile: modelstudio:default）
+4. **API Key续期：** 新Key已更新到auth-profiles.json（sk-6fdfc5d1ef5b4affa1b150885295797f）
+5. **备份恢复：** 已恢复modelstudio/qwen3.5-plus作为备份模型
 
 ---
 
