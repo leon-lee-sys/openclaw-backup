@@ -336,6 +336,14 @@
     "hermes-full": {
       "version": "1.0.0",
       "installedAt": 1776491464814
+    },
+    "automate-excel": {
+      "version": "0.1.3",
+      "installedAt": 1776502218218
+    },
+    "data-quality-check": {
+      "version": "2.1.0",
+      "installedAt": 1776502621834
     }
   }
 }

@@ -42,6 +42,33 @@
 
 ---
 
+## 📝 PPT智能生成工作流（2026-04-18）
+
+**脚本位置：** ~/.openclaw/workspace/scripts/ppt_workflow.py
+
+**支持7种PPT类型：**
+- 📊 工作汇报
+- 📈 数据分析
+- 💼 项目提案
+- 📚 培训课件
+- 🚀 产品介绍
+- 💰 融资路演
+- 🎯 策划方案
+
+**能力：** 智能生成大纲 + 自动选择模板 + 完整PPT结构
+
+---
+
+## 📊 数据可视化能力（2026-04-18）
+
+**脚本位置：** ~/.openclaw/workspace/scripts/data_visualization.py
+
+**已安装库：** pandas, openpyxl, matplotlib, xlsxwriter
+
+**支持类型：** 人力资源、财务、资产管理、项目管理
+
+---
+
 ## 🔧 Skill安装记录（2026-04-10）
 
 ### 安装概览
