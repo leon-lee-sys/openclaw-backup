@@ -332,6 +332,10 @@
     "structure-thinking": {
       "version": "1.0.0",
       "installedAt": 1776224647751
+    },
+    "hermes-full": {
+      "version": "1.0.0",
+      "installedAt": 1776491464814
     }
   }
 }

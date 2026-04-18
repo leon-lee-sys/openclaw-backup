@@ -260,6 +260,7 @@
 3. **故障报告：** 已记录到 memory/cron-failures.md
 4. **API Key续期：** 新Key已更新到auth-profiles.json（sk-6fdfc5d1ef5b4affa1b150885295797f）
 5. **备份恢复：** 已恢复modelstudio/qwen3.5-plus作为备份模型
+6. **任务简化：** 道德经每日学习任务消息过长的timeout问题已通过简化内容解决
 
 ---
 
