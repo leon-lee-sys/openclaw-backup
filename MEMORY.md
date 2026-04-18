@@ -244,6 +244,24 @@
 | Tavily | ✅ 已配置 | 2026-04-18配置，API Key已存于~/.openclaw/.env |
 | Brave Search | ✅ 可用 | 备用搜索工具 |
 
+## ⚠️ 重要教训：模型认证故障（2026-04-18）
+
+### 故障现象
+- 3个cron任务（新闻早报、道德经课件、道德经学习）连续失败
+- 错误：All models failed (9)
+
+### 根本原因
+- **modelstudio（阿里云DashScope）：** API Key过期 → HTTP 401，8个模型全部不可用
+- **MiniMax：** 高并发时段超时（7-8AM）
+
+### 已修复
+1. **配置修复：** 移除所有modelstudio无效fallback，仅保留MiniMax
+2. **超时优化：** 3个失败任务的timeout从默认值提升到300秒
+3. **故障报告：** 已记录到 memory/cron-failures.md
+
+### 待处理
+- **modelstudio API Key续期：** 需要到阿里云DashScope控制台续期（auth profile: modelstudio:default）
+
 ---
 
 ## 🤖 Skill安装情况
