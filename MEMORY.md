@@ -125,7 +125,7 @@
 
 | 服务 | Key | 状态 |
 |------|-----|------|
-| MiniMax | sk-cp-cD3sm_zaawn... | ✅ 正常使用 |
+| MiniMax | sk-cp-cD3sm_zaawn_4ODTPoRPeSpZ7ESLorike9A5axVBfypyCqOsk0ke8_cvdMkPoXTCLFLbkUkhBRc0pN6NQwjUY_11NSecHWa_u5FzgDc0RDBM6ikwR2Pp9EY | ✅ 已确认（2026-04-19三先生提供）|
 | 阿里云DashScope | sk-6fdfc5d1ef5b4aff... | ✅ 已更新（2026-04-18）|
 | Tavily | tvly-dev-1DSLvX... | ✅ 已配置 |
 
