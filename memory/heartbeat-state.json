@@ -1,5 +1,21 @@
 {
   "lastChecks": {
-    "cronHealth": 1745007600
+    "cronHealth": 1745546520
+  },
+  "healthStatus": {
+    "timestamp": "2026-04-25T00:02:00+08:00",
+    "issue": "8个cron任务同时失败，均因MiniMax-M2.7超时+qwen3.5-plus认证失效",
+    "recovered": "已全部重新触发（手动run命令）",
+    "note": "单次无问题不报告，今天晚10点集中报告"
+  },
+  "latestRecovery": {
+    "timestamp": "2026-04-25T12:02:00+08:00",
+    "failedTasks": [
+      "日程同步-每天晚8点 (e6b0fec9)",
+      "英语学习-每日10点 (8e4b7489)",
+      "【国学】道德经每日学习 (f32287f7)"
+    ],
+    "action": "已全部重新触发",
+    "result": "3个任务enqueued成功"
   }
 }
