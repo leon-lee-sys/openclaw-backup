@@ -18,7 +18,6 @@ def get_tomorrow_date():
 def parse_schedule_file():
     """解析日程文件，找到明天的日程"""
     tomorrow = get_tomorrow_date()
-    # 文件格式: ## 5月7日（周四）日程
     target_day = tomorrow.day
 
     if not os.path.exists(TOMORROW_EVENTS_FILE):
@@ -34,18 +33,17 @@ def parse_schedule_file():
         block = block.strip()
         if not block:
             continue
-        # 检查是否以"## 5月X日（周Y）日程"开头
-        # 匹配: 5月7日 -> 月=5, 日=7
-        match = re.match(r'## 5月(\d+)日（([^）]+)）日程', block)
+        # 用search而不是match，在块内任何位置查找标题
+        match = re.search(r'## 5月(\d+)日（([^）]+)）日程', block)
         if match:
             day = int(match.group(1))
             if day == target_day:
-                # 提取日程内容（去掉标题行）
+                # 提取日程内容
                 lines = block.split('\n')
                 body_lines = []
                 in_body = False
                 for line in lines:
-                    if line.startswith('## '):
+                    if re.match(r'## 5月\d+日', line):
                         in_body = True
                         continue
                     if in_body:
@@ -67,7 +65,6 @@ def main():
         header, body = result
         reminder_text = f"三先生，明天日程提醒 📅\n\n## {header}\n\n{body}\n\n请提前做好准备，准时参加！"
 
-    # 保存到outbound
     with open(OUTBOUND, 'w', encoding='utf-8') as f:
         f.write(reminder_text)
 
