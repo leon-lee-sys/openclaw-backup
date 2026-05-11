@@ -33,7 +33,7 @@ def parse_schedule_file():
         block = block.strip()
         if not block:
             continue
-        # 用search而不是match，在块内任何位置查找标题
+        # 用search而不是match，在块内任何位置查找标题（但必须是日程标题，不能是更新时间行）
         match = re.search(r'## 5月(\d+)日（([^）]+)）日程', block)
         if match:
             day = int(match.group(1))
