@@ -16,6 +16,9 @@ FILES = {
     2: (f'{COURSES_DIR}/英语学习_L6-10_AesopFables.docx', 'L6-10 中级'),
     3: (f'{COURSES_DIR}/英语学习_L11-15_AesopFables.docx', 'L11-15 中级'),
     4: (f'{COURSES_DIR}/英语学习_L16-20_AesopFables.docx', 'L16-20 进阶'),
+    5: (f'{COURSES_DIR}/英语学习_L21-25_AesopFables.docx', 'L21-25 进阶'),
+    6: (f'{COURSES_DIR}/英语学习_L26-30_AesopFables.docx', 'L26-30 高级'),
+    7: (f'{COURSES_DIR}/英语学习_L31-35_AesopFables.docx', 'L31-35 高级'),
 }
 
 def get_day_index():
@@ -27,14 +30,13 @@ def main():
     day = get_day_index()
     print(f"今天是学习第 {day} 天")
 
-    if day == 1:
-        src, desc = FILES[1]
-    elif day == 2:
-        src, desc = FILES[2]
-    elif day == 3:
-        src, desc = FILES[3]
+    if day in FILES:
+        src, desc = FILES[day]
     else:
-        src, desc = FILES[4]
+        # 超出7天的循环到第7天
+        cycle_day = ((day - 1) % 7) + 1
+        src, desc = FILES[cycle_day]
+        print(f"循环到第 {cycle_day} 天 (共7个级别)")
 
     if not os.path.exists(src):
         print(f"错误：找不到 {src}")
