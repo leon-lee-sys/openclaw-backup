@@ -250,3 +250,55 @@ _承诺：所有配置实时记录，不再丢失_
 ### 当前道德经进度
 - 最新课件：第26天（79-81章）✅
 - 后续需按日程继续生成
+
+---
+
+## 2026-06-24 - 飞书文件发送配置（重要教训）
+
+### 问题
+三先生反映Word文件打不开，因为我从桌面直接发送了文件。
+
+### 核心规则：必须使用白名单目录
+飞书机器人只允许从以下目录发送文件：
+- ✅ `~/.openclaw/media/` （包括 inbound 子目录）
+- ✅ `~/.openclaw/workspace/`
+- ✅ `~/.openclaw/sandboxes/`
+- ❌ 桌面不在白名单
+- ❌ 其他任意目录
+
+### 正确流程
+```python
+# Step 1: 生成文件（任意目录）
+doc.save('/tmp/文件.docx')
+
+# Step 2: 复制到白名单目录
+import shutil
+shutil.copy('/tmp/文件.docx', '~/.openclaw/media/inbound/文件.docx')
+
+# Step 3: 使用 media 参数发送
+message(
+    action="send",
+    channel="feishu",
+    target="user:ou_128ad31d43d38fb3bb5f252161fd0a5e",
+    message="文件说明",
+    media="/Users/mac/.openclaw/media/inbound/文件.docx"
+)
+```
+
+### 错误方式 ❌
+```python
+# 错误1: 直接从桌面发送（桌面不在白名单）
+media="/Users/mac/Desktop/文件.docx"  # 失败
+
+# 错误2: 使用 filePath 参数
+filePath="/Users/mac/Desktop/文件.docx"  # 失败
+
+# 错误3: 生成到临时目录但不复制到inbound
+doc.save('/tmp/文件.docx')
+media="/tmp/文件.docx"  # 失败（不在白名单）
+```
+
+### 教训
+2026-06-23：三先生让我生成党建发言材料Word文档，我先后尝试了4种方式都失败了（docx格式、doc格式、直接发送等），因为没有遵守白名单目录规则。
+
+**已更新HEARTBEAT.md，添加详细说明。**

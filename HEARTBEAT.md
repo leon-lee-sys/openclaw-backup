@@ -63,35 +63,54 @@ openclaw cron list 2>&1 | grep -E "error|fail"
 - 失败记录：memory/cron-failures.md
 - 每日报告：memory/YYYY-MM-DD.md
 
-## 重要教训：飞书文件发送方式（2026-04-15）
+## 重要教训：飞书文件发送方式（2026-04-15，2026-06-24强化）
 
 ### 问题
 道德经课件发送后三先生打不开，原因是飞书发送文件需要用 `media` 参数
 
-### 正确方式
+### 核心问题：必须使用白名单目录
+飞书机器人只允许从特定目录发送文件：
+- ✅ `~/.openclaw/media/` （包括 inbound 子目录）
+- ✅ `~/.openclaw/workspace/`
+- ✅ `~/.openclaw/sandboxes/`
+- ❌ 桌面不在白名单
+- ❌ 其他任意目录
+
+### 正确流程（必须遵守）
 ```python
+# Step 1: 生成文件（任意目录）
+doc.save('/tmp/文件.docx')
+
+# Step 2: 复制到白名单目录
+import shutil
+shutil.copy('/tmp/文件.docx', '~/.openclaw/media/inbound/文件.docx')
+
+# Step 3: 使用 media 参数发送
 message(
     action="send",
     channel="feishu",
     target="user:ou_128ad31d43d38fb3bb5f252161fd0a5e",
     message="文件说明",
-    media="/完整/文件/路径/文件名.pptx"  # 用media参数
+    media="/Users/mac/.openclaw/media/inbound/文件.docx"
 )
 ```
 
-### 错误方式
+### 错误方式 ❌
 ```python
-# 用filePath参数发送pptx文件会失败
-message(
-    action="send",
-    channel="feishu",
-    filePath="/完整/文件/路径/文件名.pptx"  # 这种方式不行
-)
+# 错误1: 直接从桌面发送（桌面不在白名单）
+media="/Users/mac/Desktop/文件.docx"  # 失败
+
+# 错误2: 使用 filePath 参数
+filePath="/Users/mac/Desktop/文件.docx"  # 失败
+
+# 错误3: 生成到临时目录但不复制到inbound
+doc.save('/tmp/文件.docx')
+media="/tmp/文件.docx"  # 失败（不在白名单）
 ```
 
-### 验证结果
-- `media` 参数：发送的附件可以正常打开 ✅
-- `filePath` 参数：发送的附件打不开 ❌
+### 2026-06-23教训
+三先生反映Word文件打不开，因为我从桌面直接发送了文件。
+**必须通过 media 参数 + ~/.openclaw/media/inbound/ 目录发送！**
 
 ### 备份文件位置
 - 成果文件库：~/Desktop/小燕子成果文件库/
